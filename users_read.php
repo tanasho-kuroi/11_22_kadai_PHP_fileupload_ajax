@@ -82,7 +82,8 @@ if ($status == false) {
 <body>
   <fieldset>
     <legend>ユーザ管理(一覧画面)</legend>
-    <a href="users_input.php">入力画面</a>
+    <a href="joblist_read.php">データ一覧画面</a>
+    <a href="joblist_register.php">アカウント登録画面</a>
     <table>
       <thead>
         <tr>
@@ -102,10 +103,8 @@ if ($status == false) {
         </br>
         </br>
 
-        <a href="users_logic_read.php">削除したデータを表示</a>
+        <a href="users_logic_read.php">削除したユーザデータを表示</a>
         </br>
-        </br>
-        <a href="users_deleteall.php">全削除</a>
 
 
         <p>ソートボタン</p>

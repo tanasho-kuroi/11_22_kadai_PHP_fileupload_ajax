@@ -7,7 +7,10 @@
 
 
 //DB接続の関数化
-include ("functions.php");//DB接続の関数
+session_start(); // セッションの開始
+include('functions.php'); // 関数ファイル読み込み
+check_session_id(); // idチェック関数の実行
+
 $pdo = connect_to_db();//DB接続の関数の返り値を$pdoに代入
 
 
@@ -37,14 +40,6 @@ try{
   //   exit();
   // }else{
     $record2 = $stmt2->fetch(PDO::FETCH_ASSOC);//fetchで結果セット(配列みたいな感じ)の1行を取得する。
-  //   // var_dump($record2);
-  //   // // var_dump($stmt);
-  //   // exit();
-  // }
-
-  // $stmt = $pdo->prepare('DELETE FROM joblist_table WHERE id = :id');//idはdeliteに飛ぶリンクで引っ張ってくる
-
-  // header("Location:joblist_read.php");
 
   // 削除したデータの内容をPOSTで送付
         $deleteItem .= $record2["resistDate"];

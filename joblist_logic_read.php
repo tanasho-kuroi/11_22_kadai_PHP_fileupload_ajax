@@ -4,7 +4,9 @@
 
 
 //DB接続の関数化
-include ("functions.php");//DB接続の関数
+session_start(); // セッションの開始
+include('functions.php'); // 関数ファイル読み込み
+check_session_id(); // idチェック関数の実行
 $pdo = connect_to_db();//DB接続の関数の返り値を$pdoに代入
 
 // SQL作成&実行,データを引っ張ってくるテーブル名を指定する。  (SQL: DBの操作のための言語)

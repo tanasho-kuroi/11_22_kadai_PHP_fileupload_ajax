@@ -9,6 +9,7 @@
 if ( //!isset: 変数が宣言されてかつNULLではないこと。今回は！なのでその反対
   !isset($_POST['joblist']) || $_POST['joblist'] == '' || //POSTが入っていないか、データがからだった時
   !isset($_POST['skill']) || $_POST['skill'] == ''|| 
+  !isset($_POST['category']) || $_POST['category'] == ''|| 
   !isset($_POST['region']) || $_POST['region'] == ''|| 
   !isset($_POST['resistDate']) || $_POST['resistDate'] == ''
 ) {
@@ -18,6 +19,7 @@ if ( //!isset: 変数が宣言されてかつNULLではないこと。今回は�
 // 変数定義
 $joblist = $_POST['joblist'];
 $skill = $_POST['skill'];
+$category = $_POST['category'];
 $region= $_POST['region'];
 $resistDate = $_POST['resistDate'];
 
@@ -37,7 +39,7 @@ try { //例外を投げる。これに当てはまらない(＝つまり例外)�
 // =>: わからん！！
 
 // SQL作成&実行,カラム名と値  (SQL: DBの操作のための言語)
-$sql = 'INSERT INTO joblist_table(id, joblist, skill, region, resistDate, created_at, updated_at)VALUES(NULL, :joblist, :skill, :region, :resistDate, sysdate(), sysdate())';
+$sql = 'INSERT INTO joblist_table(id, joblist, skill, category, region, resistDate, created_at, updated_at)VALUES(NULL, :joblist, :skill, :category, :region, :resistDate, sysdate(), sysdate())';
 // VALUESの「:」はバインド変数の宣言
 
 $stmt = $pdo->prepare($sql); //PDOクラスのprepareを引っ張ってくる
@@ -45,6 +47,7 @@ $stmt = $pdo->prepare($sql); //PDOクラスのprepareを引っ張ってくる
 // バインド変数を設定
 $stmt->bindValue(':joblist', $joblist, PDO::PARAM_STR); //PDOクラスのbindValueを引っ張ってくる
 $stmt->bindValue(':skill', $skill, PDO::PARAM_STR); 
+$stmt->bindValue(':category', $category, PDO::PARAM_STR); 
 $stmt->bindValue(':region', $region, PDO::PARAM_STR); 
 $stmt->bindValue(':resistDate', $resistDate, PDO::PARAM_STR);
 

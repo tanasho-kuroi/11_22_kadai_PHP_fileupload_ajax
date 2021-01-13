@@ -1,5 +1,10 @@
 <!-- // ●●●●●●●●●●●●●●●　新規データ入力画面　●●●●●●●●●●●●●●●●●● -->
 
+<?php
+session_start(); // セッションの開始
+include('functions.php'); // 関数ファイル読み込み
+check_session_id(); // idチェック関数の実行
+?>
 
 <!DOCTYPE html>
 <html lang="ja">
@@ -23,6 +28,10 @@
       <div>
         具体的なスキル(資格とかじゃなくてOK。何ができるか？を具体的に書いてください):</br>
         <input type="text" name="skill" id="skill_input">
+      </div>
+      <div>
+        カテゴリー
+        <input type="text" name="category" id="category_input">
       </div>
       <div>
         住んでいる地域: <input type="text" name="region" id="region_input">
@@ -60,7 +69,7 @@
 
       // データの作成
         const classes = [
-          { joblist: 'エンジニア', skill: 'PHP'+random, region: 'Japan',resistDate: ramdomdate },
+          { joblist: 'エンジニア', skill: 'PHP'+random, category: 'IT'+random,region: 'Japan',resistDate: ramdomdate },
         ];
 
       // 内容を確認
@@ -74,6 +83,7 @@
 
         document.getElementById( "joblist_input" ).value = classes[0].joblist;
         document.getElementById( "skill_input" ).value = classes[0].skill;
+        document.getElementById( "category_input" ).value = classes[0].category;
         document.getElementById( "region_input" ).value = classes[0].region;
         document.getElementById( "resistDate_input" ).value = classes[0].resistDate;
       })

@@ -3,8 +3,9 @@
 //  todo_edit.phpでtodo_update.phpにidと更新内容を送る。updateの処理はtodo_update.phpで行う
 //  ↑todo_input.phpとtodo_create.php みたいな感じ
 
-include("functions.php");
-// var_dump($_GET);
+session_start(); // セッションの開始
+include('functions.php'); // 関数ファイル読み込み
+check_session_id(); // idチェック関数の実行// var_dump($_GET);
 // exit();
 $id = $_GET['id'];
 
@@ -22,14 +23,16 @@ if ($status == false){
   $record = $stmt->fetch(PDO::FETCH_ASSOC);//fetchで結果セット(配列みたいな感じ)の1行を取得する。
   // PDO::FETCH_ASSOC: は、結果セットに 返された際のカラム名で添字を付けた配列を返します。
   // 結果、$record には狙ったDBデータ１行分が格納される
-  // var_dump($record);
-  // var_dump($stmt);
-  // exit();
+
+  
+
   $record2 .= $record['resistDate'];
   $record2 .= ', ';
   $record2 .= $record['joblist'];
   $record2 .= ', ';
   $record2 .= $record['skill'];
+  $record2 .= ', ';
+  $record2 .= $record['category'];
   $record2 .= ', ';
   $record2 .= $record['region'];
 }
@@ -61,6 +64,9 @@ if ($status == false){
       <div>
         具体的なスキル(資格とかじゃなくてOK。何ができるか？を具体的に書いてください):</br>
         <input type="text" name="skill" value="<?= $record["skill"] ?>">
+      </div>
+      <div>
+        カテゴリー：<input type="text" name="category" value="<?= $record["category"] ?>">
       </div>
       <div>
         住んでいる地域: <input type="text" name="region" value="<?= $record["region"] ?>">

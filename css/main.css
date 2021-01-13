@@ -1,0 +1,37 @@
+.login_resister_page_btn {
+   /* position: fixed; */
+   width: 100px;
+   /* right: 20px; */
+   bottom: 35px;
+   color: white;
+   background: blue;
+   border-radius: 10%;
+   padding: 12px;
+   font-size: 18px;
+   text-align: center;
+   margin-bottom: 50px;
+}
+
+.login_resister_btn {
+   /* position: fixed; */
+   width: 120px;
+   /* right: 20px; */
+   bottom: 35px;
+   color: white;
+   background: red;
+   border-radius: 10%;
+   padding: 12px;
+   font-size: 18px;
+   text-align: center;
+   margin-bottom: 50px;
+}
+
+.auto_input {
+   margin: 30px;
+}
+
+form {
+   background: antiquewhite;
+   width: 70%;
+   margin: 0 auto;
+}
