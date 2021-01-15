@@ -22,23 +22,26 @@
 <body>
   <form action='joblist_login_act.php' method="POST">
     <fieldset>
+    <!-- <fieldset class="login_form"> -->
       <legend>joblistログイン画面</legend>
-      <div>
-        username: <input type="text" name="username" id="username_input">
+      <div class="login_form">
+        <div class="login_input">
+          <div><input type="text" name="username" id="username_input" placeholder="ユーザーネーム"></div>
+          <div><input type="text" name="password" id="password_input" placeholder="パスワード"></div>
+        </div>
+        <div class="login_resister_btn">
+          <button>Login</button>
+        </div>
       </div>
-      <div>
-        password: <input type="text" name="password" id="password_input">
-      </div>
-      <div class="login_resister_btn">
-        <button>Login</button>
+
+      <div class="no_account_enter">
+        <p>アカウントをお持ちでない方はこちら</p>
+        <a href="joblist_register.php" class="login_resister_page_btn">アカウント作成</a>
+        <a href="joblist_read.php" class="login_resister_page_btn">ログインせずに一覧をみる</a>
       </div>
     </fieldset>
   </form>
-  <div>
-    <p>アカウントをお持ちでない方はこちら</p>
-    <a href="joblist_register.php" class="login_resister_page_btn">アカウント作成</a>
-    <a href="joblist_read.php" class="login_resister_page_btn">ログインせずに一覧をみる</a>
-  </div>
+
 
   <div class="auto_input">
     <p>自動入力</p>
