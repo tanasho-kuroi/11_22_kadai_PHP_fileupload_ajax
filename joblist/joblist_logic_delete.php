@@ -8,11 +8,10 @@
 
 //DB接続の関数化
 session_start(); // セッションの開始
-include('functions.php'); // 関数ファイル読み込み
+include('../functions.php'); // 関数ファイル読み込み
 check_session_id(); // idチェック関数の実行
 
 $pdo = connect_to_db();//DB接続の関数の返り値を$pdoに代入
-
 
 $id = $_GET['id']; //GETでid取得
 try{
@@ -34,12 +33,9 @@ try{
   $stmt2 -> bindValue(':id',$id, PDO::PARAM_INT);//バインド変数で取得したidを$stmtに入力
   $status2 = $stmt2->execute();//$stmtを実行した結果を$statusに代入。$statusはboolでtrue or false
 
-  // if ($status2 == false){
-  //   $error = $stmt2->errorInfo();//PDOクラスのerrorInfo関数を$stmtに入力し、その結果を$errorに入力
-  //   echo json_encode(["error_msg"=>"{$error[2]}"]);
-  //   exit();
-  // }else{
-    $record2 = $stmt2->fetch(PDO::FETCH_ASSOC);//fetchで結果セット(配列みたいな感じ)の1行を取得する。
+
+  $record2 = $stmt2->fetch(PDO::FETCH_ASSOC);//fetchで結果セット(配列みたいな感じ)の1行を取得する。
+
 
   // 削除したデータの内容をPOSTで送付
         $deleteItem .= $record2["resistDate"];
@@ -50,23 +46,32 @@ try{
         $deleteItem .= ', ';
         $deleteItem .= $record2["region"];
       $url = 'http://localhost/8_22_kadai_PHP/joblist_read.php';
-      $message = array(
-          'msg' => $deleteItem,
-      );
-      $context = array(
-          'http' => array(
-              'method'  => 'POST',
-              'header'  => implode("\r\n", array('Content-Type: application/x-www-form-urlencoded',)),
-              'content' => http_build_query($message)
-          )
-      );
-      $html = file_get_contents($url, false, stream_context_create($context));
-      // var_dump($http_response_header);
-      // var_dump($message);
-      // var_dump($context);
-      // var_dump($http);//NULLが返ってくる
-  // exit();
-      echo $html;
+
+      //ここをやると、readでのsession_idが何故かNULLになるため、SESSIONに切り替え(2021/1/17)
+      // $url = 'http://localhost/10_22_kadai_PHP/joblist/joblist_read.php';
+  //     $message = array(
+  //         'msg' => $deleteItem,
+  //     );
+  //     $context = array(
+  //         'http' => array(
+  //             'method'  => 'POST',
+  //             'header'  => implode("\r\n", array('Content-Type: application/x-www-form-urlencoded',)),
+  //             'content' => http_build_query($message)
+  //         )
+  //     );
+
+  //     $html = file_get_contents($url, false, stream_context_create($context));
+  //     // var_dump($http_response_header);
+  //     // var_dump($message);
+  //     // var_dump($context);
+  //     // var_dump($http);//NULLが返ってくる
+  // // exit();
+  //     echo $html;
+      // var_dump($_SESSION['session_id']);
+
+
+  $_SESSION['deleteItem'] = $deleteItem;//削除したデータを表示する
+  header("Location:../joblist/joblist_read.php");
 
   exit();
 
@@ -76,16 +81,4 @@ try{
 
 
 ?>
-<!-- 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>削除完了</title>
-  </head>
-  <body>          
-  <p>
-      <a href="joblist_read.php">投稿一覧へ</a>
-  </p> 
-  </body>
-</html> -->
+

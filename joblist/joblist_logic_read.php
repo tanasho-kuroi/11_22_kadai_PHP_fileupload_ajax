@@ -5,7 +5,7 @@
 
 //DB接続の関数化
 session_start(); // セッションの開始
-include('functions.php'); // 関数ファイル読み込み
+include('../functions.php'); // 関数ファイル読み込み
 check_session_id(); // idチェック関数の実行
 $pdo = connect_to_db();//DB接続の関数の返り値を$pdoに代入
 
@@ -91,7 +91,7 @@ if ($status == false) {
 <body>
   <fieldset>
     <legend>DB連携型joblist（削除データ一覧画面）</legend>
-    <a href="joblist_read.php">一覧画面</a>
+    <a href="../joblist/joblist_read.php">一覧画面</a>
     <table>
       <thead>
         <tr>

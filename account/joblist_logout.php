@@ -7,5 +7,5 @@ if (isset($_COOKIE[session_name()])) { //クッキーがある場合
 } // クッキーの保持期限を過去にする
 session_destroy(); // セッションの破棄
 // クッキーとセッション両方破棄(別々の話なので)
-header('Location:joblist_login.php'); // ログインページヘ移動
+header('Location:../account/joblist_login.php'); // ログインページヘ移動
 exit();

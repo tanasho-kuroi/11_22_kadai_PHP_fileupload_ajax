@@ -4,7 +4,7 @@
 // exit();
 
 // 関数ファイル読み込み
-include('functions.php');
+include('../functions.php');
 
 // データ受け取り
 $username = $_POST["username"];
@@ -31,7 +31,7 @@ if ($stmt->fetchColumn() > 0) {
   // usernameが1件以上該当した場合はエラーを表示して元のページに戻る
   // $count = $stmt->fetchColumn();
   echo "<p>すでに登録されているユーザです．</p>";
-  echo '<a href="joblist_login.php">login</a>';
+  echo '<a href="../account/joblist_login.php">login</a>';
   exit();
 }
 
@@ -54,6 +54,6 @@ if ($status == false) {
   exit();
 } else {
   // 正常にSQLが実行された場合は入力ページファイルに移動し，入力ページの処理を実行する
-  header("Location:joblist_login.php");
+  header("Location:../account/joblist_login.php");
   exit();
 }

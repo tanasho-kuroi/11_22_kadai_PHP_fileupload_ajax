@@ -3,7 +3,7 @@
 // exit();
 
 session_start(); // セッションの開始
-include('functions.php'); // 関数ファイル読み込み
+include('../functions.php'); // 関数ファイル読み込み
 $pdo = connect_to_db(); // DB接続
 
 $username = $_POST['username']; // データ受け取り→変数に入れる
@@ -30,9 +30,9 @@ if ($status == false) {
 
 // データの有無で分岐
 $val = $stmt->fetch(PDO::FETCH_ASSOC); // 該当レコードだけ取得
-if (!$val) { // 該当データがない(っkぴぉデータが一致していないとき)ときはログインページへのリンクを表示
+if (!$val) { // 該当データがない(accountデータが一致していないとき)ときはログインページへのリンクを表示
     echo "<p>ログイン情報に誤りがあります．</p>";
-    echo '<a href="joblist_login.php">login</a>';
+    echo '<a href="../account/joblist_login.php">login</a>';
     exit();
 } else { //データがあった場合は、変数を格納する(必要なデータだけ！)
 
@@ -40,7 +40,7 @@ if (!$val) { // 該当データがない(っkぴぉデータが一致してい�
     $_SESSION["session_id"] = session_id();
     $_SESSION["is_admin"] = $val["is_admin"];
     $_SESSION["username"] = $val["username"]; //loginに直接必要ではないが、ページ上に名前表示とかのため取得する
-    header("Location:joblist_read.php"); // 一覧ページへ移動
+    header("Location:../joblist/joblist_read.php"); // 一覧ページへ移動
     exit();
 }// session変数には必要な値を保存する（今回は管理者フラグとユーザ名）．
 // 自身のアプリで使いたい値を保存しましょう！

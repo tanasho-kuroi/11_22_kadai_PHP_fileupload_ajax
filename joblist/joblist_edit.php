@@ -4,7 +4,7 @@
 //  ↑todo_input.phpとtodo_create.php みたいな感じ
 
 session_start(); // セッションの開始
-include('functions.php'); // 関数ファイル読み込み
+include('../functions.php'); // 関数ファイル読み込み
 check_session_id(); // idチェック関数の実行// var_dump($_GET);
 // exit();
 $id = $_GET['id'];
@@ -54,7 +54,7 @@ if ($status == false){
   <form action="joblist_update.php" method="POST">
     <fieldset>
       <legend>DB連携型joblist(**編集画面**)</legend>
-      <a href="joblist_read.php">一覧画面へ戻る</a>
+      <a href="../joblist/joblist_read.php">一覧画面へ戻る</a>
             <!-- 以下、ここはPOSTで送っている -->
             <!-- type, nameはあわせるだけ。valueは上記PHPから該当の値を引っ張ってくる -->
 

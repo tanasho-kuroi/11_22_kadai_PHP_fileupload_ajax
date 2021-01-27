@@ -21,11 +21,13 @@ function connect_to_db()
 // ログイン状態のチェック関数
 function check_session_id()
 { // 失敗時はログイン画面に戻る
+        // var_dump($_SESSION['session_id']);//ここまでsession_idあるのに、if分岐の時はNULL
+
     if (
         !isset($_SESSION['session_id']) || // session_idがない
         $_SESSION['session_id'] != session_id() // idが一致しない
     ) {
-        header('Location: joblist_login.php'); // 失敗時はログイン画面へ移動
+        header('Location: ../account/joblist_login.php'); // 失敗時はログイン画面へ移動
         // このとき、ログイン失敗の表示したいが、、、またデータの受け渡しか。
     } else {
         session_regenerate_id(true); // セッションidの再生成
@@ -36,15 +38,26 @@ function check_session_id()
 // read時の参照モード(ログインしない時)
 function check_session_id_read()
 { // ログインしていない時は、編集・削除ボタンを表示しない
+    // var_dump($_SESSION['session_id']);//ここまでsession_idあるのに、if分岐の時はNULL
+    // exit();
+
     if (
         !isset($_SESSION['session_id']) || // session_idがない
         $_SESSION['session_id'] != session_id() // idが一致しない
+        // $_SESSION['session_id'] == NULL
     ) {
         $_SESSION['refOnly'] = 1;
+        // header('Location: ./account/joblist_login.php'); // 失敗時はログイン画面へ移動
+
+        // var_dump($_SESSION['session_id']);
+        // var_dump($_SESSION['refOnly']);
+        // exit();
     } else {//ログインしている時は表示
         session_regenerate_id(true); // セッションidの再生成
         $_SESSION['session_id'] = session_id(); // セッション変数上書き
         $_SESSION['refOnly'] = 0;
+        // var_dump($_SESSION['session_id']);
+        // exit();
     }
 }
 

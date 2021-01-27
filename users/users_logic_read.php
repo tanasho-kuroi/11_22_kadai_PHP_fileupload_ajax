@@ -4,7 +4,7 @@
 
 
 //DB接続の関数化
-include ("functions.php");//DB接続の関数
+include('../functions.php'); //DB接続の関数
 $pdo = connect_to_db();//DB接続の関数の返り値を$pdoに代入
 
 // SQL作成&実行,データを引っ張ってくるテーブル名を指定する。  (SQL: DBの操作のための言語)
@@ -77,7 +77,7 @@ if ($status == false) {
 <body>
   <fieldset>
     <legend>ユーザデータ（削除データ一覧画面）</legend>
-    <a href="users_read.php">一覧画面</a>
+    <a href="../users/users_read.php">一覧画面</a>
     <table>
       <thead>
         <tr>

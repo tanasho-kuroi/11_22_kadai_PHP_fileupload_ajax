@@ -2,7 +2,7 @@
 // ●●●●●●●●●●●●●●●　一覧表示　●●●●●●●●●●●●●●●●●●
 
 //DB接続の関数化
-include ("functions.php");//DB接続の関数
+include('../functions.php'); //DB接続の関数
 $pdo = connect_to_db();//DB接続の関数の返り値を$pdoに代入
 
 // var_dump($_POST);//object(PDOStatement)#2 (1) { ["queryString"]=> string(27) "SELECT * FROM joblist_table" }
@@ -12,8 +12,10 @@ $pdo = connect_to_db();//DB接続の関数の返り値を$pdoに代入
 // DESC:降順, ASC:昇順
 if (isset($_POST['sort-username'])) {//isset: 変数がセットされているかを調べる
   $sql = 'SELECT * FROM users_table ORDER BY username ASC';
+
+
 }else{
-$sql = 'SELECT * FROM users_table';
+  $sql = 'SELECT * FROM users_table';
 }
 // この時は単に'SELECT * FROM users_table'という文字列を$sqlで定義しているだけ
 
@@ -31,8 +33,6 @@ $status = $stmt->execute(); // SQLを実行
 
 // var_dump($status);//bool
 // exit();
-
-
 if ($status == false) {
   $error = $stmt->errorInfo();
   exit('sqlError:' . $error[2]);
@@ -51,21 +51,28 @@ if ($status == false) {
       $output .= "<tr>"; //.=は追加していく演算子
       $output .= "<td>{$record["username"]}</td>";
       $output .= "<td>{$record["password"]}</td>";
-      $output .= "<td><a href=users_edit.php?id={$record["id"]}>編集</a></td>";//getでidを送っている
+      // $output .= "<td><a href=../users/users_edit.php?id={$record["id"]}>編集</a></td>";//getでidを送っている
       // $output .= "<td><a href=joblist_delete.php?id={$record["id"]}>削除</a>\n</td>";//getでidを送っている
-      $output .= "<td><a href=users_logic_delete.php?id={$record["id"]}>削除</a>\n</td>";//論理削除
+      $output .= "<td><a href=../users/users_logic_delete.php?id={$record["id"]}>削除</a>\n</td>";//論理削除
       $output .= "</tr>";
       //  ↓HTMLに<tr><td>resistDate</td><td>joblist</td>....<tr>の形でデータが入る 
     }
   }
   
-  $output2 = "{$_POST["msg"]}";
-
+  if(isset($_SESSION['deleteItem_user'])){//削除したデータの表示  SESSIONで定義(logic_deleteにて)
+    $output_deleteData = "{$_SESSION['deleteItem_user']}";
+    $_SESSION['deleteItem_user']="";//残り続けてしまうので、一度表示したらSESSIONの値は消去
+  }else{
+    $output_deleteData ="";
+  }
       // $output .= "<td><a href=joblist_deleteall.php}>全削除</a>\n</td>";
  // $valueの参照を解除する．解除しないと，再度foreachした場合に最初からループしない
   // 今回は以降foreachしないので影響なし
   unset($record);
 }
+
+
+
 ?>
 
 
@@ -82,8 +89,8 @@ if ($status == false) {
 <body>
   <fieldset>
     <legend>ユーザ管理(一覧画面)</legend>
-    <a href="joblist_read.php">データ一覧画面</a>
-    <a href="joblist_register.php">アカウント登録画面</a>
+    <a href="../joblist/joblist_read.php">データ一覧画面</a>
+    <a href="../account/joblist_register.php">アカウント登録画面</a>
     <table>
       <thead>
         <tr>
@@ -99,11 +106,11 @@ if ($status == false) {
     </table>
         </br>
 
-        <p>削除したデータ：<?= $output2 ?></p>
+        <p>削除したデータ：<?= $output_deleteData ?></p>
         </br>
         </br>
 
-        <a href="users_logic_read.php">削除したユーザデータを表示</a>
+        <a href="../users/users_logic_read.php">削除したユーザデータを表示</a>
         </br>
 
 

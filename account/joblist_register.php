@@ -36,7 +36,7 @@
       </div>
       <div>
       <p>既にアカウントをお持ちの方はこちら</p>
-      <a href="joblist_login.php" class="login_resister_page_btn">ログイン</a>
+      <a href="../account/joblist_login.php" class="login_resister_page_btn">ログイン</a>
       </div>
     </fieldset>
   </form>

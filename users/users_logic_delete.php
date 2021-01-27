@@ -7,7 +7,7 @@
 
 
 //DB接続の関数化
-include ("functions.php");//DB接続の関数
+include ("../functions.php");//DB接続の関数
 $pdo = connect_to_db();//DB接続の関数の返り値を$pdoに代入
 
 
@@ -44,50 +44,40 @@ try{
 
   // $stmt = $pdo->prepare('DELETE FROM users_table WHERE id = :id');//idはdeliteに飛ぶリンクで引っ張ってくる
 
-  // header("Location:joblist_read.php");
+  // header("Location:../joblist_read.php");
 
-  // 削除したデータの内容をPOSTで送付
-        $deleteItem .= $record2["username"];
-        $deleteItem .= ', ';
-        $deleteItem .= $record2["password"];
-        $deleteItem .= ', ';
-      $url = 'http://localhost/8_22_kadai_PHP/users_read.php';
-      $message = array(
-          'msg' => $deleteItem,
-      );
-      $context = array(
-          'http' => array(
-              'method'  => 'POST',
-              'header'  => implode("\r\n", array('Content-Type: application/x-www-form-urlencoded',)),
-              'content' => http_build_query($message)
-          )
-      );
-      $html = file_get_contents($url, false, stream_context_create($context));
-      // var_dump($http_response_header);
-      // var_dump($message);
-      // var_dump($context);
-      // var_dump($http);//NULLが返ってくる
-  // exit();
-      echo $html;
+  // 削除したデータの内容
+        $deleteItem_user .= $record2["username"];
+        $deleteItem_user .= ', ';
+        $deleteItem_user .= $record2["password"];
 
+      //ここをやると、readでのsession_idが何故かNULLになるため、SESSIONに切り替え(2021/1/17)
+  //     $url = 'http://localhost/8_22_kadai_PHP/users/users_read.php';
+  //     $message = array(
+  //         'msg' => $deleteItem,
+  //     );
+  //     $context = array(
+  //         'http' => array(
+  //             'method'  => 'POST',
+  //             'header'  => implode("\r\n", array('Content-Type: application/x-www-form-urlencoded',)),
+  //             'content' => http_build_query($message)
+  //         )
+  //     );
+  //     $html = file_get_contents($url, false, stream_context_create($context));
+  //     // var_dump($http_response_header);
+  //     // var_dump($message);
+  //     // var_dump($context);
+  //     // var_dump($http);//NULLが返ってくる
+  // // exit();
+  //     echo $html;
+
+
+  $_SESSION['deleteItem_user'] = $deleteItem_user;//削除したデータを表示する
+  header("Location:../users/users_read.php");
   exit();
 
 } catch (Exception $e) {
           echo 'エラーが発生しました。:' . $e->getMessage();
 }
 
-
 ?>
-<!-- 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>削除完了</title>
-  </head>
-  <body>          
-  <p>
-      <a href="joblist_read.php">投稿一覧へ</a>
-  </p> 
-  </body>
-</html> -->

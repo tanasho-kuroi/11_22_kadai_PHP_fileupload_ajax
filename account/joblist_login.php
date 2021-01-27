@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="../css/main.css">
   <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 
   <!-- <style>
@@ -36,8 +36,8 @@
 
       <div class="no_account_enter">
         <p>アカウントをお持ちでない方はこちら</p>
-        <a href="joblist_register.php" class="login_resister_page_btn">アカウント作成</a>
-        <a href="joblist_read.php" class="login_resister_page_btn">ログインせずに一覧をみる</a>
+        <a href="../account/joblist_register.php" class="login_resister_page_btn">アカウント作成</a>
+        <a href="../joblist/joblist_read.php" class="login_resister_page_btn">ログインせずに一覧をみる</a>
       </div>
     </fieldset>
   </form>

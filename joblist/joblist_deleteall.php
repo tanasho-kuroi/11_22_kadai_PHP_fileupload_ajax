@@ -6,7 +6,7 @@
 
 ///DB接続の関数化
 session_start(); // セッションの開始
-include('functions.php'); // 関数ファイル読み込み
+include('../functions.php'); // 関数ファイル読み込み
 check_session_id(); // idチェック関数の実行
 
 $pdo = connect_to_db();//DB接続の関数の返り値を$pdoに代入
@@ -24,7 +24,7 @@ try{
     echo 'エラーが発生しました。:' . $e->getMessage();
   }else{
     // echo "全データ削除しました。";
-    header("Location:joblist_read.php");
+    header("Location:../joblist/joblist_read.php");
     exit();
   }
   } catch (Exception $e) {
@@ -114,7 +114,7 @@ try{
   </head>
   <body>          
   <p>
-      <a href="joblist_read.php">投稿一覧へ</a>
+      <a href="../joblist/joblist_read.php">投稿一覧へ</a>
   </p> 
   </body>
 </html>

@@ -2,7 +2,7 @@
 
 <?php
 session_start(); // セッションの開始
-include('functions.php'); // 関数ファイル読み込み
+include('../functions.php'); // 関数ファイル読み込み
 check_session_id(); // idチェック関数の実行
 ?>
 
@@ -20,7 +20,7 @@ check_session_id(); // idチェック関数の実行
   <form action="joblist_create.php" method="POST">/
     <fieldset>
       <legend> 職業体験マッチング（入力画面）</legend>
-      <a href="joblist_read.php">一覧画面</a>
+      <a href="../joblist/joblist_read.php">一覧画面</a>
 
       <div>
         お仕事: <input type="text" name="joblist" id="joblist_input">
@@ -45,7 +45,6 @@ check_session_id(); // idチェック関数の実行
     </fieldset>
   </form>
 
-  <!-- <a href="joblist_autoinput.php">Auto Input</a> -->
   <button id="btn">自動入力</button>
   <div id="echo"></div>
     
@@ -110,30 +109,6 @@ check_session_id(); // idチェック関数の実行
     
   </script>
 
-<!-- 子供側。createのphpは別にしたい。 -->
-    <!-- <form action="joblist_create.php" method="POST">/
-    <fieldset>
-      <legend> 職業体験マッチング（入力画面）</legend>
-      <a href="joblist_read.php">一覧画面</a>
-
-      <div>
-        学校: <input type="text" name="school">
-      </div>
-      <div>
-        年齢: <input type="text" name="school">
-      </div>
-      <div>
-        どんなことをやりたいか？(職業名とかじゃなくてOK。何がしたいか？を具体的に書いてください):</br>
-         <input type="text" name="skill">
-      </div>
-      <div>
-        登録日 <input type="date" name="registrationDate">
-      </div>
-      <div>
-        <button>submit</button>
-      </div>
-    </fieldset>
-  </form> -->
 
 </body>
 

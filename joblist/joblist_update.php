@@ -13,7 +13,7 @@ $category = $_POST['category'];
 $region = $_POST['region'];
 
 session_start(); // セッションの開始
-include('functions.php'); // 関数ファイル読み込み
+include('../functions.php'); // 関数ファイル読み込み
 check_session_id(); // idチェック関数の実行
 
 $pdo = connect_to_db(); //関数の出力を$pdoに代入
@@ -52,7 +52,7 @@ if ($status == false) {
 // 正常にSQLが実行された場合は入力ページファイルに移動する
     // header("Location:joblist_input.php");
 // 正常にSQLが実行された場合は一覧ページファイルに移動し、処理を実行する
-    header("Location:joblist_read.php");
+    header("Location:../joblist/joblist_read.php");
 
     exit();
 }

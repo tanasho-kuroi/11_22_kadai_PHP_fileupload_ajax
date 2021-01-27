@@ -61,5 +61,5 @@ if ($status == false) {
   exit('sqlError:' . $error[2]);
 } else {
   // 登録ページへ移動
-  header('Location:joblist_input.php');
+  header('Location:../joblist/joblist_input.php');
 }
