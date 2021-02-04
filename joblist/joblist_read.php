@@ -14,7 +14,8 @@ check_session_id_read(); // idチェック関数の実行->ログインしてい
 
 $pdo = connect_to_db();//DB接続の関数の返り値を$pdoに代入
 
-
+// var_dump($_GET);
+// exit();
 
 // データ取得SQL作成
 $sql .= 'SELECT * FROM joblist_table LEFT OUTER JOIN 
@@ -75,6 +76,7 @@ $stmt->bindValue(':joblist', $joblist, PDO::PARAM_STR); //PDOクラスのbindVal
 $stmt->bindValue(':skill', $skill, PDO::PARAM_STR); 
 $stmt->bindValue(':category', $category, PDO::PARAM_STR); 
 $stmt->bindValue(':region', $region, PDO::PARAM_STR); 
+$stmt->bindValue(':image', $filename_to_save, PDO::PARAM_STR);
 $stmt->bindValue(':resistDate', $resistDate, PDO::PARAM_STR);
 
 $status = $stmt->execute(); // SQLを実行 **エラーが起きていたのはMySQLの問題だった
@@ -119,6 +121,7 @@ if ($status == false) {
       $output .= "<td>{$record["skill"]}</td>";
       $output .= "<td>{$record["category"]}</td>";
       $output .= "<td>{$record["region"]}</td>";
+      $output .= "<td><img src='{$record["image"]}' height=100px></td>";
       // ここで、ログインしていなかったら編集や削除ボタンが表示されない様にする。
       if ($_SESSION['refOnly'] == 1){//function check_session_id_read()にて定義
 
@@ -185,6 +188,7 @@ if ($status == false) {
           <th>skill</th>
           <th>category</th>
           <th>region</th>
+          <th>image</th>
         </tr>
       </thead>
       <tbody>

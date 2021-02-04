@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>リアルタイム検索型joblist</title>
+   </head>
+
+   <body>
+      <fieldset>
+         <legend>リアルタイム検索型joblist</legend>
+         <a href="../joblist/joblist_input.php">入力画面</a>
+         <div>検索フォーム：<input type="text" id="search" /></div>
+         <table>
+            <thead>
+               <tr>
+                  <th>job</th>
+                  <th>skill</th>
+               </tr>
+               <tr>
+                  <th id="serchResult_job"></th>
+                  <th id="serchResult_skill"></th>
+               </tr>
+            </thead>
+            <tbody>
+               <!-- ここに<tr><td>deadline</td><td>todo</td><tr>の形でデータが入る -->
+            </tbody>
+         </table>
+      </fieldset>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      <script>
+         $('#search').on('keyup', function () {
+            console.log($(this).val()); //リアルタイムでconsoleに表示
+            const searchWord = $(this).val();
+            const requestUrl = '../ajax/ajax_joblist_get.php'; //リクエスト送信先ファイル
+            axios
+               .get(`${requestUrl}?searchWord=${searchWord}`)
+               .then(function (response) {
+                  // responseにPHPから送られたデータが入る
+                  console.log(response);
+                  // 今回はconsoleでデータが出てくればOK．
+                  // できる人はここにブラウザに表示する処理を書こう！
+
+                  // 入力のたびに一度空にする;
+                  // $('#serchResult').html(response);
+                  $('#serchResult_job').html('');
+                  $('#serchResult_skill').html('');
+                  response.data.forEach((res) => {
+                     document
+                        .getElementById('serchResult_job')
+                        .insertAdjacentHTML('beforeend', `<p>${res.joblist}</p>`);
+                     document
+                        .getElementById('serchResult_skill')
+                        .insertAdjacentHTML('beforeend', `<p>${res.skill}</p>`);
+                  });
+               })
+               .catch(function (error) {
+                  console.log(error);
+               })
+               .finally();
+         });
+      </script>
+   </body>
+</html>

@@ -16,8 +16,8 @@ check_session_id(); // idチェック関数の実行
 </head>
 
 <body>
-  <!-- formで"joblist_create.php" を使うよという宣言をする(最初これが抜けてた) -->
-  <form action="joblist_create.php" method="POST">/
+  <!-- formで"joblist_create_file.php" を使うよという宣言をする(最初これとenctypeが抜けてた) -->
+  <form method="post" action="../joblist/joblist_create_file.php" enctype="multipart/form-data">/
     <fieldset>
       <legend> 職業体験マッチング（入力画面）</legend>
       <a href="../joblist/joblist_read.php">一覧画面</a>
@@ -35,6 +35,9 @@ check_session_id(); // idチェック関数の実行
       </div>
       <div>
         住んでいる地域: <input type="text" name="region" id="region_input">
+      </div>
+      <div>
+        file: <input type="file" name="upfile" accept="image/*" capture="camera">
       </div>
       <div>
         登録日 <input type="date" name="resistDate" id="resistDate_input">

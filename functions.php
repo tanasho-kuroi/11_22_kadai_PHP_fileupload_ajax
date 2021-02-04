@@ -38,9 +38,6 @@ function check_session_id()
 // read時の参照モード(ログインしない時)
 function check_session_id_read()
 { // ログインしていない時は、編集・削除ボタンを表示しない
-    // var_dump($_SESSION['session_id']);//ここまでsession_idあるのに、if分岐の時はNULL
-    // exit();
-
     if (
         !isset($_SESSION['session_id']) || // session_idがない
         $_SESSION['session_id'] != session_id() // idが一致しない
@@ -48,16 +45,10 @@ function check_session_id_read()
     ) {
         $_SESSION['refOnly'] = 1;
         // header('Location: ./account/joblist_login.php'); // 失敗時はログイン画面へ移動
-
-        // var_dump($_SESSION['session_id']);
-        // var_dump($_SESSION['refOnly']);
-        // exit();
     } else {//ログインしている時は表示
         session_regenerate_id(true); // セッションidの再生成
         $_SESSION['session_id'] = session_id(); // セッション変数上書き
         $_SESSION['refOnly'] = 0;
-        // var_dump($_SESSION['session_id']);
-        // exit();
     }
 }
 

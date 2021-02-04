@@ -56,9 +56,15 @@ for($day = 1; $day <= $day_count; $day++, $youbi++){
     if($today==$date){
         // 今日の日付の場合は、class="today"をつける
         $week .= '<td class="today">' . $day;
-    } else {
-        $week .= '<td>' . $day;
-    }
+    } else {//    <a href="../joblist/joblist_read.php">一覧に戻る</a>
+//          $output .= "<td><a href=../joblist/joblist_edit.php?id={$record["id"]}>編集</a></td>";//getでidを送っている
+
+        // $week .= '<td>' . $day . '<form action= "../joblist/joblist_read.php?day='.$day.'" method="get">
+        $week .= '<td>' . $day . '<a href= "../joblist/joblist_read.php?day='.$day.'" method="get">
+        <button type="button" name="aaa" value="aaa"><font size="1">ここを</font><font size="2" color="#333399">押してね</font>
+</button></a>';
+//  </form>'; 
+    }//ボタン表示
     $week .= '</td>';
 
     // 週終わり、または、月終わりの場合
@@ -70,6 +76,7 @@ for($day = 1; $day <= $day_count; $day++, $youbi++){
         }
         // weeks配列にtrと$weekを追加する
         $weeks[] = '<tr>' . $week . '</tr>';
+        
         // weekをリセット
         $week = '';
     }
