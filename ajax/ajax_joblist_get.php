@@ -17,6 +17,7 @@ $pdo = connect_to_db();
 $sql = "SELECT * FROM joblist_table WHERE joblist LIKE '%{$search_word}%'";
 
 $stmt = $pdo->prepare($sql);
+$stmt->bindValue(':search_word', $search_word, PDO::PARAM_STR);
 $status = $stmt->execute();
 
 if ($status == false) {

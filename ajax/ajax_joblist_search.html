@@ -39,11 +39,9 @@
                .then(function (response) {
                   // responseにPHPから送られたデータが入る
                   console.log(response);
-                  // 今回はconsoleでデータが出てくればOK．
-                  // できる人はここにブラウザに表示する処理を書こう！
 
+                  // ブラウザに表示する処理
                   // 入力のたびに一度空にする;
-                  // $('#serchResult').html(response);
                   $('#serchResult_job').html('');
                   $('#serchResult_skill').html('');
                   response.data.forEach((res) => {
