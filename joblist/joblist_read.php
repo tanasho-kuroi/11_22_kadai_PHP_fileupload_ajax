@@ -7,6 +7,9 @@
 session_start(); // セッションの開始
 include('../functions.php'); // 関数ファイル読み込み
 
+// エラー表示あり -> 効果あり！逆に /etc/php.ini.default の display_errors=On にしても効果なかった。
+ini_set('display_errors', 1);
+
       // var_dump($_SESSION['session_id']);
 
 check_session_id_read(); // idチェック関数の実行->ログインしていなくても、一覧表示だけはできる様にした。
@@ -18,7 +21,7 @@ $pdo = connect_to_db();//DB接続の関数の返り値を$pdoに代入
 // exit();
 
 // データ取得SQL作成
-$sql .= 'SELECT * FROM joblist_table LEFT OUTER JOIN 
+$sql = 'SELECT * FROM joblist_table LEFT OUTER JOIN 
 (SELECT joblist_id, COUNT(id) AS cnt FROM like_joblist_table GROUP BY joblist_id) AS likes 
 ON joblist_table.id = likes.joblist_id';
 // １行目
@@ -35,8 +38,7 @@ ON joblist_table.id = likes.joblist_id';
 // 結合条件。joblist_table.id とlikes.joblist_id を連動させて結合。(likesは仮想テーブル)
 
 
-// sortエラー。sql文が長いので、".=" で足していこうとしたがうまくいかなかった。
-//  →間のにスペースを入れていないだけだった。あほちん。
+// sql文が長いので、".=" で足していく。
 if (isset($_POST['sort-resistDate'])) {//isset: 変数がセットされているかを調べる
   $sql .= ' ORDER BY resistDate DESC';
 }elseif(isset($_POST['sort-joblist'])){
@@ -50,15 +52,14 @@ $sql .= ' ORDER BY region ASC';
 }else{
 }
 
-
-
 // SQL準備&実行
 $stmt = $pdo->prepare($sql); //PDOクラスのprepareを引っ張ってくる
 
 
       // var_dump($_POST);
 
-// 受け取ったデータを変数に入れる
+// 受け取ったデータを変数に入れる -> 今回はPOST で送られているわけではないので、コメントアウト
+// GEt，POSTだけして、ファイルに送ってた初期の名残？？
 // $joblist = $_POST['joblist'];
 // $skill = $_POST['skill'];
 // $region = $_POST['category'];
@@ -70,14 +71,14 @@ $stmt = $pdo->prepare($sql); //PDOクラスのprepareを引っ張ってくる
 //       var_dump($_POST);
 //       var_dump($joblist);
 
+//  (これももしかして要らない？） 少なくとも上記$_POSTで変数定義していないので、エラーになる。
+// $stmt->bindValue(':joblist', $joblist, PDO::PARAM_STR); //PDOクラスのbindValueを引っ張ってくる
+// $stmt->bindValue(':skill', $skill, PDO::PARAM_STR); 
+// $stmt->bindValue(':category', $category, PDO::PARAM_STR); 
+// $stmt->bindValue(':region', $region, PDO::PARAM_STR); 
+// $stmt->bindValue(':image', $filename_to_save, PDO::PARAM_STR);
+// $stmt->bindValue(':resistDate', $resistDate, PDO::PARAM_STR);
 
-//  (これももしかして要らない？）
-$stmt->bindValue(':joblist', $joblist, PDO::PARAM_STR); //PDOクラスのbindValueを引っ張ってくる
-$stmt->bindValue(':skill', $skill, PDO::PARAM_STR); 
-$stmt->bindValue(':category', $category, PDO::PARAM_STR); 
-$stmt->bindValue(':region', $region, PDO::PARAM_STR); 
-$stmt->bindValue(':image', $filename_to_save, PDO::PARAM_STR);
-$stmt->bindValue(':resistDate', $resistDate, PDO::PARAM_STR);
 
 $status = $stmt->execute(); // SQLを実行 **エラーが起きていたのはMySQLの問題だった
 
@@ -102,9 +103,9 @@ if ($status == false) {
 } else {
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);//fetchAll 全てのデータを配列として格納する
   $output = "";
-  $user_id = $_SESSION['id'];//いいね機能に使うuser_idの追加
+  $user_id = $_SESSION['user_id'];//いいね機能に使うuser_idの追加
 
-
+// var_dump($user_id);//
 // var_dump($result);//配列が全て入る
 // exit();
 
@@ -168,8 +169,57 @@ if ($status == false) {
 
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DB連携型joblist（一覧画面）</title>
+    <script src="../js/libs/modernizr-2.6.2.min.js"></script>
+    <!-- jQuery-->
+    <script type="text/javascript" src="../js/libs/jquery-1.10.2.min.js"></script>
+    <!-- framework css --><!--[if gt IE 9]><!-->
+    <link type="text/css" rel="stylesheet" href="../css/groundwork.css"><!--<![endif]--><!--[if lte IE 9]>-->
+
+      <style type="text/css">
+         .logo {
+            position: relative;
+            top: -0.5em;
+         }
+         .logo a,
+         .logo a:visited {
+            text-decoration: none;
+            color: #2b2b2d;
+         }
+         .logo img {
+            height: 2em;
+            position: relative;
+            top: 0.55em;
+            margin-right: 0.3em;
+         }
+      </style>
+      <!-- snippet (syntax highlighting for code examples)-->
+      <script type="text/javascript" src="../js/demo/jquery.snippet.min.js"></script>
+      <link type="text/css" rel="stylesheet" href="../css/demo/jquery.snippet.css" />
+      <script type="text/javascript">
+         (function () {
+            $(document).ready(function () {
+               $('pre[data-lang="html"]').snippet('html', {
+                  style: 'groundwork',
+                  clipboard: '../js/demo/ZeroClipboard.swf',
+               });
+               $('pre[data-lang="css"]').snippet('css', {
+                  style: 'groundwork',
+                  clipboard: '../js/demo/ZeroClipboard.swf',
+               });
+               $('pre[data-lang="sass"]').snippet('sass', {
+                  style: 'groundwork',
+                  clipboard: '../js/demo/ZeroClipboard.swf',
+               });
+               return $('pre[data-lang="js"]').snippet('javascript', {
+                  style: 'groundwork',
+                  clipboard: '../js/demo/ZeroClipboard.swf',
+               });
+            });
+         }.call(this));
+      </script>
 </head>
 
 <body>
@@ -177,20 +227,22 @@ if ($status == false) {
     <legend>DB連携型joblist（一覧画面）</legend>
     
     <a href="../joblist/joblist_input.php">入力画面</a>
-    <!-- <a href="../account/joblist_logout.php">logout</a>-->
+    <a href="../account/joblist_logout.php">logout</a>
     <?= $output_link ?>
 
     <table>
-      <thead>
-        <tr>
-          <th>resistDate</th>
-          <th>joblist</th>
-          <th>skill</th>
-          <th>category</th>
-          <th>region</th>
-          <th>image</th>
-        </tr>
-      </thead>
+      <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInLeft animated">
+        <thead>
+          <tr>
+            <th>resistDate</th>
+            <th>joblist</th>
+            <th>skill</th>
+            <th>gory</th>
+            <th>region</th>
+            <th>image</th>
+          </tr>
+        </thead>
+      </div>
       <tbody>
         <!-- ここに<tr><td>resistDate</td><td>joblist</td>....<tr>の形でデータが入る -->
         <?= $output ?>
