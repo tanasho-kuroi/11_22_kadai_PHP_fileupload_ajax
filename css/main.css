@@ -3,6 +3,19 @@ form {
    margin: 0 auto;
 }
 
+table {
+   text-align: center;
+   vertical-align: middle;
+   font-size: 25px;
+}
+th,
+td {
+   width: 150px;
+   height: 100px;
+   text-align: center;
+   vertical-align: middle;
+}
+
 fieldset {
    background: antiquewhite;
    /* width: 70%; */

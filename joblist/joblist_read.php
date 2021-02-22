@@ -177,8 +177,9 @@ if ($status == false) {
     <script type="text/javascript" src="../js/libs/jquery-1.10.2.min.js"></script>
     <!-- framework css --><!--[if gt IE 9]><!-->
     <link type="text/css" rel="stylesheet" href="../css/groundwork.css"><!--<![endif]--><!--[if lte IE 9]>-->
+    <link type="text/css" rel="stylesheet" href="../css/main.css">
 
-      <style type="text/css">
+      <!-- <style type="text/css">
          .logo {
             position: relative;
             top: -0.5em;
@@ -194,7 +195,8 @@ if ($status == false) {
             top: 0.55em;
             margin-right: 0.3em;
          }
-      </style>
+      </style> -->
+
       <!-- snippet (syntax highlighting for code examples)-->
       <script type="text/javascript" src="../js/demo/jquery.snippet.min.js"></script>
       <link type="text/css" rel="stylesheet" href="../css/demo/jquery.snippet.css" />
@@ -227,10 +229,10 @@ if ($status == false) {
     <legend>DB連携型joblist（一覧画面）</legend>
     
     <a href="../joblist/joblist_input.php">入力画面</a>
-    <a href="../account/joblist_logout.php">logout</a>
+    <!-- <a href="../account/joblist_logout.php">logout</a> -->
     <?= $output_link ?>
 
-    <table>
+    <table class="cjoblist">
       <div class="one sixth three-up-small-tablet two-up-mobile padded bounceInLeft animated">
         <thead>
           <tr>
@@ -243,7 +245,7 @@ if ($status == false) {
           </tr>
         </thead>
       </div>
-      <tbody>
+      <tbody class="cjoblist">
         <!-- ここに<tr><td>resistDate</td><td>joblist</td>....<tr>の形でデータが入る -->
         <?= $output ?>
       </tbody>
